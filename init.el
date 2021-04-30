@@ -109,6 +109,7 @@
 (which-key-mode)
 
 (global-linum-mode t)
+<<<<<<< HEAD
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -126,3 +127,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+=======
+>>>>>>> 29f2a2c38c68b60e37d5bb1e34456c6735467d0d
