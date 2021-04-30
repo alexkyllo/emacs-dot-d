@@ -19,7 +19,8 @@
 (eval-when-compile
   (require 'use-package))
 
-; Set up elpy for Python in Emacs
+;; LANGS
+;; Python
 (use-package elpy
   :ensure t
   :pin elpy
@@ -40,11 +41,55 @@
   ;; https://emacs.stackexchange.com/questions/17808/enable-python-pdb-on-emacs-with-virtualenv
   (setq gud-pdb-command-name "python -m pdb "))
 
+;; python virtualenvs 
+(use-package conda :ensure t)
+(use-package pipenv :ensure t)
+
+;; language server mode
+(use-package lsp-mode :ensure t)
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred
+
+(setq lsp-log-io t)
+(setq lsp-pyright-use-library-code-for-types t)
+   (setq lsp-pyright-diagnostic-mode "workspace")
+   (lsp-register-client
+     (make-lsp-client
+       :new-connection (lsp-tramp-connection (lambda ()
+                                       (cons "pyright-langserver"
+                                             lsp-pyright-langserver-command-args)))
+       :major-modes '(python-mode)
+       :remote? t
+       :server-id 'pyright-remote
+       :multi-root t
+       :priority 3
+       :initialization-options (lambda () (ht-merge (lsp-configuration-section "pyright")
+                                                    (lsp-configuration-section "python")))
+       :initialized-fn (lambda (workspace)
+                         (with-lsp-workspace workspace
+                           (lsp--set-configuration
+                           (ht-merge (lsp-configuration-section "pyright")
+                                     (lsp-configuration-section "python")))))
+       :download-server-fn (lambda (_client callback error-callback _update?)
+                             (lsp-package-ensure 'pyright callback error-callback))
+       :notification-handlers (lsp-ht ("pyright/beginProgress" 'lsp-pyright--begin-progress-callback)
+                                     ("pyright/reportProgress" 'lsp-pyright--report-progress-callback)
+                                     ("pyright/endProgress" 'lsp-pyright--end-progress-callback))))
+
+
+;; THEMES
 ;; nord theme
 (use-package nord-theme :ensure t)
 (load-theme 'nord)
 
+;; MISC
 ;; neotree
+(use-package treemacs :ensure t)
 (use-package neotree :ensure t)
 (use-package all-the-icons :ensure t)
 (global-set-key [f8] 'neotree-toggle)
@@ -57,6 +102,10 @@
 ;; magit
 (use-package magit :ensure t)
 
+;; which-key for keybinding completion
+(use-package which-key :ensure t)
+(which-key-mode)
+
 (global-linum-mode t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -68,7 +117,7 @@
     ("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default)))
  '(package-selected-packages
    (quote
-    (magit ivy all-the-icons neotree use-package nord-theme elpy))))
+    (which-key lsp-treemacs treemacs lsp-mode pipenv conda magit ivy all-the-icons neotree use-package nord-theme elpy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
