@@ -97,6 +97,15 @@
 (load-theme 'nord)
 
 ;; MISC
+;; windows
+;; Navigate window layouts with "C-c <left>" and "C-c <right>"
+
+(add-hook 'after-init-hook 'winner-mode)
+;; Make "C-x o" prompt for a target window when there are more than 2
+(use-package switch-window :ensure t)
+(setq-default switch-window-shortcut-style 'alphabet)
+(setq-default switch-window-timeout nil)
+(global-set-key (kbd "C-x o") 'switch-window)
 ;; neotree
 (use-package treemacs :ensure t)
 (use-package neotree :ensure t)
@@ -134,7 +143,7 @@
  '(custom-safe-themes
    '("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default))
  '(package-selected-packages
-   '(blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons)))
+   '(switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
