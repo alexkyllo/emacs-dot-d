@@ -20,6 +20,8 @@
   (require 'use-package))
 
 ;; LANGS
+;; TeX
+(use-package auctex :ensure t)
 ;; Python
 (use-package elpy
   :ensure t
@@ -133,20 +135,38 @@
 (show-paren-mode 1)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-linum-mode t)
+<<<<<<< HEAD
 (tool-bar-mode -1)
+=======
+<<<<<<< HEAD
+>>>>>>> 93674125108cdf9113ae79e66bd6d375d79cb7b0
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+<<<<<<< HEAD
  '(conda-env-home-directory "/home/alex/miniconda3/")
  '(custom-safe-themes
    '("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default))
  '(package-selected-packages
    '(switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons)))
+=======
+ '(custom-safe-themes
+   (quote
+    ("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default)))
+ '(package-selected-packages
+   (quote
+    (auctex which-key lsp-treemacs treemacs lsp-mode pipenv conda magit ivy all-the-icons neotree use-package nord-theme elpy))))
+>>>>>>> 93674125108cdf9113ae79e66bd6d375d79cb7b0
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 29f2a2c38c68b60e37d5bb1e34456c6735467d0d
+>>>>>>> 93674125108cdf9113ae79e66bd6d375d79cb7b0

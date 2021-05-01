@@ -1,8 +1,12 @@
+*~
 /.cache/
 /.lsp-session-v1
+/.session
 /auto-save-list/
 /elpa/
+/history
 /init.el~
+/recentf
 /request/
 /savefile/
 /transient/
