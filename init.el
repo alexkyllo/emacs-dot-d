@@ -39,6 +39,7 @@
   ;; https://emacs.stackexchange.com/questions/24453/weird-shell-output-when-using-ipython-5
   (setq python-shell-interpreter "jupyter-console")
   (setq python-shell-interpreter-args "--simple-prompt")
+  (setq python-shell-prompt-detect-failure-warning nil)
   (setq python-shell-completion-native-enable nil)
   ;; Enable pyvenv, which manages Python virtual environments
   (pyvenv-mode 1)
@@ -102,6 +103,9 @@
 
 ;; MISC
 
+;; kill ring
+(use-package browse-kill-ring :ensure t)
+(browse-kill-ring-default-keybindings)
 ;; windows
 ;; Navigate window layouts with "C-c <left>" and "C-c <right>"
 
@@ -136,6 +140,10 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ; Make Emacs highlight paired parentheses
 (show-paren-mode 1)
+
+
+(setq column-number-mode t)
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-linum-mode t)
 (tool-bar-mode -1)
@@ -148,7 +156,8 @@
  '(custom-safe-themes
    '("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default))
  '(package-selected-packages
-   '(pytest company-bibtex auctex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons)))
+   '(browse-kill-ring pytest company-bibtex auctex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+ '(python-shell-interpreter-interactive-arg ""))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
