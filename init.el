@@ -49,7 +49,7 @@
 
 ;; notebooks
 (use-package ein :ensure t)
-
+(use-package jupyter :ensure t)
 ;; python formatting
 (use-package blacken :ensure t)
 ;; python test running
@@ -152,11 +152,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(conda-anaconda-home "/home/alex/miniconda3/")
  '(conda-env-home-directory "/home/alex/miniconda3/")
  '(custom-safe-themes
    '("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default))
  '(package-selected-packages
-   '(browse-kill-ring pytest company-bibtex auctex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(jupyter emacs-jupyter browse-kill-ring pytest company-bibtex auctex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(python-shell-interpreter-interactive-arg ""))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
