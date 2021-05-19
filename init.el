@@ -27,6 +27,9 @@
 ;; LANGS
 ;;
 (use-package company :ensure t)
+(use-package company-box :ensure t
+  :hook (company-mode . company-box-mode))
+
 (use-package auctex :ensure t)
 ;; Python
 (use-package elpy
@@ -114,6 +117,11 @@
 ;;                                      ("pyright/reportProgress" 'lsp-pyright--report-progress-callback)
 ;;                                      ("pyright/endProgress" 'lsp-pyright--end-progress-callback))))
 
+;; js prettier
+(use-package prettier-js
+  :ensure t
+  :init (add-hook 'js-mode-hook 'prettier-js-mode))
+
 ;; graphviz
 (use-package graphviz-dot-mode :ensure t)
 
@@ -194,6 +202,8 @@ apps are not started from a shell."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(conda-anaconda-home "/home/alex/miniconda3/")
  '(conda-env-home-directory "/home/alex/miniconda3/")
  '(custom-safe-themes
@@ -204,7 +214,7 @@ apps are not started from a shell."
  '(lsp-latex-lint-on-change t)
  '(lsp-latex-lint-on-save nil)
  '(package-selected-packages
-   '(flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex auctex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex auctex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg ""))
 (custom-set-faces
