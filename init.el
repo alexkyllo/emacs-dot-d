@@ -19,6 +19,11 @@
 (eval-when-compile
   (require 'use-package))
 
+;; flycheck
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
 ;; LANGS
 ;;
 (use-package company :ensure t)
@@ -51,7 +56,13 @@
 (use-package ein :ensure t)
 (use-package jupyter :ensure t)
 ;; python formatting
-(use-package blacken :ensure t)
+(use-package blacken :ensure t :init (setq blacken-line-length 100))
+;; isort
+(use-package py-isort
+  :ensure t
+  :init
+  ;;(setq py-isort-options '("--lines=100" "--multi-line=3" "--trailing-comma"))
+  (add-hook 'before-save-hook 'py-isort-before-save))
 ;; python test running
 (use-package pytest :ensure t)
 ;; python virtualenvs
@@ -59,47 +70,55 @@
 (use-package pipenv :ensure t)
 
 ;; language server mode
-(use-package lsp-mode :ensure t)
+(use-package lsp-mode :ensure t :hook
+  ((python-mode . lsp)))
 (use-package lsp-ivy :ensure t :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :ensure t :commands lsp-treemacs-errors-list)
 (use-package lsp-latex :ensure t)
-(use-package lsp-pyright
-  :ensure t
-  :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp))))  ; or lsp-deferred
 
-(setq lsp-log-io t)
-(setq lsp-pyright-use-library-code-for-types t)
-   (setq lsp-pyright-diagnostic-mode "workspace")
-   (lsp-register-client
-     (make-lsp-client
-       :new-connection (lsp-tramp-connection (lambda ()
-                                       (cons "pyright-langserver"
-                                             lsp-pyright-langserver-command-args)))
-       :major-modes '(python-mode)
-       :remote? t
-       :server-id 'pyright-remote
-       :multi-root t
-       :priority 3
-       :initialization-options (lambda () (ht-merge (lsp-configuration-section "pyright")
-                                                    (lsp-configuration-section "python")))
-       :initialized-fn (lambda (workspace)
-                         (with-lsp-workspace workspace
-                           (lsp--set-configuration
-                           (ht-merge (lsp-configuration-section "pyright")
-                                     (lsp-configuration-section "python")))))
-       :download-server-fn (lambda (_client callback error-callback _update?)
-                             (lsp-package-ensure 'pyright callback error-callback))
-       :notification-handlers (lsp-ht ("pyright/beginProgress" 'lsp-pyright--begin-progress-callback)
-                                     ("pyright/reportProgress" 'lsp-pyright--report-progress-callback)
-                                     ("pyright/endProgress" 'lsp-pyright--end-progress-callback))))
+;; (use-package lsp-pyright
+;;   :ensure t
+;;   :hook (python-mode . (lambda ()
+;;                           (require 'lsp-pyright)
+;;                           (lsp))))  ; or lsp-deferred
+;; ;; (use-package lsp-python-ms
+;; ;;   :ensure t
+;; ;;   :init (setq lsp-python-ms-auto-install-server t)
+;; ;;   :hook (python-mode . (lambda ()
+;; ;;                           (require 'lsp-python-ms)
+;; ;;                           (lsp))))  ; or lsp-deferred
 
+;; (setq lsp-log-io t)
+;; (setq lsp-pyright-use-library-code-for-types t)
+;;    (setq lsp-pyright-diagnostic-mode "workspace")
+;;    (lsp-register-client
+;;      (make-lsp-client
+;;        :new-connection (lsp-tramp-connection (lambda ()
+;;                                        (cons "pyright-langserver"
+;;                                              lsp-pyright-langserver-command-args)))
+;;        :major-modes '(python-mode)
+;;        :remote? t
+;;        :server-id 'pyright-remote
+;;        :multi-root t
+;;        :priority 3
+;;        :initialization-options (lambda () (ht-merge (lsp-configuration-section "pyright")
+;;                                                     (lsp-configuration-section "python")))
+;;        :initialized-fn (lambda (workspace)
+;;                          (with-lsp-workspace workspace
+;;                            (lsp--set-configuration
+;;                            (ht-merge (lsp-configuration-section "pyright")
+;;                                      (lsp-configuration-section "python")))))
+;;        :download-server-fn (lambda (_client callback error-callback _update?)
+;;                              (lsp-package-ensure 'pyright callback error-callback))
+;;        :notification-handlers (lsp-ht ("pyright/beginProgress" 'lsp-pyright--begin-progress-callback)
+;;                                      ("pyright/reportProgress" 'lsp-pyright--report-progress-callback)
+;;                                      ("pyright/endProgress" 'lsp-pyright--end-progress-callback))))
 
-;; THEMES
-;; nord theme
-(use-package nord-theme :ensure t)
-(load-theme 'nord)
+;; graphviz
+(use-package graphviz-dot-mode :ensure t)
+
+;; projectile
+(use-package projectile :ensure t)
 
 ;; MISC
 
@@ -147,6 +166,29 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-linum-mode t)
 (tool-bar-mode -1)
+
+(defun set-exec-path-from-shell-PATH ()
+  "Set up Emacs' `exec-path' and PATH environment variable to match
+that used by the user's shell.
+
+This is particularly useful under Mac OS X and macOS, where GUI
+apps are not started from a shell."
+  (interactive)
+  (let ((path-from-shell (replace-regexp-in-string
+			  "[ \t\n]*$" "" (shell-command-to-string
+					  "$SHELL --login -c 'echo $PATH'"
+						    ))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+
+(set-exec-path-from-shell-PATH)
+
+;; THEMES
+;; nord theme
+(setq custom-safe-themes t)
+(use-package nord-theme :ensure t)
+(load-theme 'nord t)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -156,8 +198,14 @@
  '(conda-env-home-directory "/home/alex/miniconda3/")
  '(custom-safe-themes
    '("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default))
+ '(lsp-latex-build-args
+   '("-pdf" "-interaction=nonstopmode" "-bibtex" "-synctex=1" "%f"))
+ '(lsp-latex-build-on-save t)
+ '(lsp-latex-lint-on-change t)
+ '(lsp-latex-lint-on-save nil)
  '(package-selected-packages
-   '(jupyter emacs-jupyter browse-kill-ring pytest company-bibtex auctex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex auctex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+ '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg ""))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
