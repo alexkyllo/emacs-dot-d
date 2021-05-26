@@ -30,7 +30,7 @@
 (use-package company-box :ensure t
   :hook (company-mode . company-box-mode))
 
-(use-package auctex :ensure t)
+;;(use-package auctex :ensure t)
 ;; Python
 (use-package elpy
   :ensure t
@@ -75,6 +75,8 @@
 ;; language server mode
 (use-package lsp-mode :ensure t :hook
   ((python-mode . lsp)))
+(with-eval-after-load 'lsp
+  (setq lsp-pylsp-plugins-pydocstyle-enabled nil))
 (use-package lsp-ivy :ensure t :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :ensure t :commands lsp-treemacs-errors-list)
 (use-package lsp-latex :ensure t)
@@ -161,18 +163,20 @@
 (use-package which-key :ensure t)
 (which-key-mode)
 
-; C-n add new lines at the end of buffer
+;; C-n add new lines at the end of buffer
 (setq next-line-add-newlines t)
-; open emacs full screen
+;; open emacs full screen
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-; Make Emacs highlight paired parentheses
+;; Make Emacs highlight paired parentheses
 (show-paren-mode 1)
-
-
+;; make emacs show column numbers
 (setq column-number-mode t)
+;; Make emacs auto revert buffers
+(global-auto-revert-mode t)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(global-linum-mode t)
+;;(global-linum-mode t)
+(add-hook 'prog-mode-hook 'linum-mode)
 (tool-bar-mode -1)
 
 (defun set-exec-path-from-shell-PATH ()
@@ -208,13 +212,14 @@ apps are not started from a shell."
  '(conda-env-home-directory "/home/alex/miniconda3/")
  '(custom-safe-themes
    '("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default))
+ '(jupyter-repl-echo-eval-p t)
  '(lsp-latex-build-args
    '("-pdf" "-interaction=nonstopmode" "-bibtex" "-synctex=1" "%f"))
  '(lsp-latex-build-on-save t)
  '(lsp-latex-lint-on-change t)
  '(lsp-latex-lint-on-save nil)
  '(package-selected-packages
-   '(company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex auctex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg ""))
 (custom-set-faces
