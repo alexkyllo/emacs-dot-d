@@ -73,8 +73,9 @@
 (use-package pipenv :ensure t)
 
 ;; language server mode
-(use-package lsp-mode :ensure t :hook
-  ((python-mode . lsp)))
+(use-package lsp-mode :ensure t
+  :init (add-hook 'before-save-hook 'lsp-organize-imports)
+  :hook ((python-mode . lsp)))
 (with-eval-after-load 'lsp
   (setq lsp-pylsp-plugins-pydocstyle-enabled nil))
 (use-package lsp-ivy :ensure t :commands lsp-ivy-workspace-symbol)
@@ -126,6 +127,9 @@
 
 ;; graphviz
 (use-package graphviz-dot-mode :ensure t)
+
+;; rest-client
+(use-package restclient :ensure t)
 
 ;; projectile
 (use-package projectile :ensure t)
@@ -213,13 +217,17 @@ apps are not started from a shell."
  '(custom-safe-themes
    '("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default))
  '(jupyter-repl-echo-eval-p t)
+ '(lsp-eslint-auto-fix-on-save t)
  '(lsp-latex-build-args
    '("-pdf" "-interaction=nonstopmode" "-bibtex" "-synctex=1" "%f"))
  '(lsp-latex-build-on-save t)
  '(lsp-latex-lint-on-change t)
  '(lsp-latex-lint-on-save nil)
+ '(lsp-pylsp-plugins-pycodestyle-enabled t)
+ '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
-   '(company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+ '(prettier-js-args nil)
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg ""))
 (custom-set-faces
