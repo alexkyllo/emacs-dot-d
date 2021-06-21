@@ -134,6 +134,9 @@
 ;; projectile
 (use-package projectile :ensure t)
 
+;; YAML
+(use-package yaml :ensure t)
+
 ;; MISC
 
 ;; kill ring
@@ -221,12 +224,12 @@ apps are not started from a shell."
  '(lsp-latex-build-args
    '("-pdf" "-interaction=nonstopmode" "-bibtex" "-synctex=1" "%f"))
  '(lsp-latex-build-on-save t)
- '(lsp-latex-lint-on-change t)
- '(lsp-latex-lint-on-save nil)
+ '(lsp-latex-chktex-on-edit t)
+ '(lsp-latex-chktex-on-open-and-save nil)
  '(lsp-pylsp-plugins-pycodestyle-enabled t)
  '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
-   '(restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(prettier-js-args nil)
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg ""))
