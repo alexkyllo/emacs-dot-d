@@ -58,6 +58,7 @@
 ;; notebooks
 (use-package ein :ensure t)
 (use-package jupyter :ensure t)
+(setq comp-deferred-compilation-deny-list (list "jupyter"))
 ;; python formatting
 (use-package blacken :ensure t :init (setq blacken-line-length 100))
 ;; isort
@@ -202,11 +203,18 @@ apps are not started from a shell."
 
 (set-exec-path-from-shell-PATH)
 
+;; Don't create backup files~
+(setq make-backup-files nil)
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+
 ;; THEMES
 ;; nord theme
 (setq custom-safe-themes t)
 (use-package nord-theme :ensure t)
 (load-theme 'nord t)
+
+;; venv workon
+(setenv "WORKON_HOME" "/home/alex/.local/share/virtualenvs")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
