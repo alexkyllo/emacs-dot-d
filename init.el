@@ -32,41 +32,43 @@
 
 ;;(use-package auctex :ensure t)
 ;; Python
-(use-package elpy
-  :ensure t
-  :pin elpy
-  :config
-  (elpy-enable)
-  ;; Enable elpy in a Python mode
-  (add-hook 'python-mode-hook 'elpy-mode)
-  (add-hook 'python-mode-hook 'blacken-mode)
-  (setq elpy-rpc-backend "jedi")
-  ;; Open the Python shell in a buffer after sending code to it
-  (add-hook 'inferior-python-mode-hook 'python-shell-switch-to-shell)
-  ;; Use IPython as the default shell, with a workaround to accommodate IPython 5
-  ;; https://emacs.stackexchange.com/questions/24453/weird-shell-output-when-using-ipython-5
-  (setq python-shell-interpreter "jupyter-console")
-  (setq python-shell-interpreter-args "--simple-prompt")
-  (setq python-shell-prompt-detect-failure-warning nil)
-  (setq python-shell-completion-native-enable nil)
-  ;; Enable pyvenv, which manages Python virtual environments
-  (pyvenv-mode 1)
-  ;; Tell Python debugger (pdb) to use the current virtual environment
-  ;; https://emacs.stackexchange.com/questions/17808/enable-python-pdb-on-emacs-with-virtualenv
-  (setq gud-pdb-command-name "python -m pdb "))
+;; (use-package elpy
+;;   :ensure t
+;;   :pin elpy
+;;   :config
+;;   (elpy-enable)
+;;   ;; Enable elpy in a Python mode
+;;   (add-hook 'python-mode-hook 'elpy-mode)
+;;   (add-hook 'python-mode-hook 'blacken-mode)
+;;   (setq elpy-rpc-backend "jedi")
+;;   ;; Open the Python shell in a buffer after sending code to it
+;;   (add-hook 'inferior-python-mode-hook 'python-shell-switch-to-shell)
+;;   ;; Use IPython as the default shell, with a workaround to accommodate IPython 5
+;;   ;; https://emacs.stackexchange.com/questions/24453/weird-shell-output-when-using-ipython-5
+;;   (setq python-shell-interpreter "jupyter-console")
+;;   (setq python-shell-interpreter-args "--simple-prompt")
+;;   (setq python-shell-prompt-detect-failure-warning nil)
+;;   (setq python-shell-completion-native-enable nil)
+;;   ;; Enable pyvenv, which manages Python virtual environments
+;;   (pyvenv-mode 1)
+;;   ;; Tell Python debugger (pdb) to use the current virtual environment
+;;   ;; https://emacs.stackexchange.com/questions/17808/enable-python-pdb-on-emacs-with-virtualenv
+;;   (setq gud-pdb-command-name "python -m pdb "))
+
+(use-package pipenv :ensure t)
 
 ;; notebooks
 (use-package ein :ensure t)
 (use-package jupyter :ensure t)
 (setq comp-deferred-compilation-deny-list (list "jupyter"))
 ;; python formatting
-(use-package blacken :ensure t :init (setq blacken-line-length 100))
+(use-package blacken :ensure t :init (setq blacken-line-length 100) (add-hook 'python-mode-hook 'blacken-mode))
 ;; isort
-(use-package py-isort
-  :ensure t
-  :init
-  ;;(setq py-isort-options '("--lines=100" "--multi-line=3" "--trailing-comma"))
-  (add-hook 'before-save-hook 'py-isort-before-save))
+;; (use-package py-isort
+;;   :ensure t
+;;   :init
+;;   ;;(setq py-isort-options '("--lines=100" "--multi-line=3" "--trailing-comma"))
+;;   (add-hook 'before-save-hook 'py-isort-before-save))
 ;; python test running
 (use-package pytest :ensure t)
 ;; python virtualenvs
@@ -234,7 +236,10 @@ apps are not started from a shell."
  '(lsp-latex-build-on-save t)
  '(lsp-latex-chktex-on-edit t)
  '(lsp-latex-chktex-on-open-and-save nil)
- '(lsp-pylsp-plugins-pycodestyle-enabled t)
+ '(lsp-pylsp-plugins-flake8-enabled nil)
+ '(lsp-pylsp-plugins-flake8-max-line-length 100)
+ '(lsp-pylsp-plugins-pycodestyle-enabled nil)
+ '(lsp-pylsp-plugins-pydocstyle-enabled nil)
  '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
    '(yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
