@@ -24,6 +24,13 @@
   :ensure t
   :init (global-flycheck-mode))
 
+;; disable secondary selection w/ mouse
+(global-set-key [remap mouse-drag-secondary] 'mouse-drag-region)
+(global-set-key [remap mouse-set-secondary] 'mouse-set-region)
+(global-set-key [remap mouse-start-secondary] 'mouse-set-point)
+(global-set-key [remap mouse-yank-secondary] 'mouse-yank-primary)
+(global-set-key [remap mouse-secondary-save-then-kill] 'mouse-save-then-kill)
+
 ;; LANGS
 ;;
 (use-package company :ensure t)
@@ -223,6 +230,9 @@ apps are not started from a shell."
 ;; venv workon
 (setenv "WORKON_HOME" "/home/alex/.local/share/virtualenvs")
 
+;; no tabs
+(setq-default indent-tabs-mode nil)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -247,7 +257,7 @@ apps are not started from a shell."
  '(lsp-pylsp-plugins-pydocstyle-enabled nil)
  '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
-   '(numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(numpydoc yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(prettier-js-args nil)
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg ""))
