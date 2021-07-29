@@ -24,6 +24,13 @@
   :ensure t
   :init (global-flycheck-mode))
 
+;; disable secondary selection w/ mouse
+(global-set-key [remap mouse-drag-secondary] 'mouse-drag-region)
+(global-set-key [remap mouse-set-secondary] 'mouse-set-region)
+(global-set-key [remap mouse-start-secondary] 'mouse-set-point)
+(global-set-key [remap mouse-yank-secondary] 'mouse-yank-primary)
+(global-set-key [remap mouse-secondary-save-then-kill] 'mouse-save-then-kill)
+
 ;; LANGS
 ;;
 (use-package company :ensure t)
@@ -240,27 +247,33 @@ apps are not started from a shell."
 ;; THEMES
 ;; nord theme
 (setq custom-safe-themes t)
+(use-package zenburn-theme :ensure t)
+(use-package dream-theme :ensure t)
 (use-package nord-theme :ensure t)
 (load-theme 'nord t)
 
 ;; venv workon
 (setenv "WORKON_HOME" "/home/alex/.virtualenvs")
+(setenv "WORKON_HOME" "/home/alex/.local/share/virtualenvs")
+;;(setenv "WORKON_HOME" "/home/jekyllo/envs")
+;; no tabs
+(setq-default indent-tabs-mode nil)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(conda-anaconda-home "/home/alex/miniconda3/")
  '(conda-env-home-directory "/home/alex/miniconda3/")
  '(custom-safe-themes
-   '("37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default))
+   (quote
+    ("e6df46d5085fde0ad56a46ef69ebb388193080cc9819e2d6024c9c6e27388ba9" "37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default)))
  '(jupyter-repl-echo-eval-p t)
  '(lsp-eslint-auto-fix-on-save t)
  '(lsp-latex-build-args
-   '("-pdf" "-interaction=nonstopmode" "-bibtex" "-synctex=1" "%f"))
+   (quote
+    ("-pdf" "-interaction=nonstopmode" "-bibtex" "-synctex=1" "%f")))
  '(lsp-latex-build-on-save t)
  '(lsp-latex-chktex-on-edit t)
  '(lsp-latex-chktex-on-open-and-save nil)
@@ -271,6 +284,9 @@ apps are not started from a shell."
  '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
    '(poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   (quote
+    (dream-theme zenburn-theme numpydoc yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons)))
+>>>>>>> fbf01ee596b133dc645872e3d503a81119cccfc2
  '(prettier-js-args nil)
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg ""))
