@@ -76,14 +76,37 @@
 (use-package pipenv :ensure t)
 
 ;; language server mode
-(use-package lsp-mode :ensure t
-  :init (add-hook 'before-save-hook 'lsp-organize-imports)
-  :hook ((python-mode . lsp)))
+(use-package lsp-mode
+  :ensure t
+  :defer t
+  :init (setq lsp-keymap-prefix "C-c l")
+  :hook ((python-mode . lsp-deferred)))
 (with-eval-after-load 'lsp
   (setq lsp-pylsp-plugins-pydocstyle-enabled nil))
 (use-package lsp-ivy :ensure t :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :ensure t :commands lsp-treemacs-errors-list)
 (use-package lsp-latex :ensure t)
+;; Provides visual help in the buffer
+;; For example definitions on hover.
+;; The `imenu` lets me browse definitions quickly.
+(use-package lsp-ui
+  :ensure t
+  :defer t
+  :config
+  (setq lsp-ui-sideline-enable nil
+	    lsp-ui-doc-delay 2)
+  :hook (lsp-mode . lsp-ui-mode)
+  :bind (:map lsp-ui-mode-map
+	      ("C-c i" . lsp-ui-imenu)))
+
+;; Integration with the debug server
+(use-package dap-mode
+  :ensure t
+  :defer t
+  :after lsp-mode
+  :config
+  (dap-auto-configure-mode))
+
 
 ;; (use-package lsp-pyright
 ;;   :ensure t

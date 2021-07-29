@@ -1,0 +1,19 @@
+;; Emacs-W3 HTTP cookies file
+;; Automatically generated file!!! DO NOT EDIT!!!
+
+(setq url-cookie-storage
+ '(("localhost"
+  [url-cookie "username-localhost-8888" "2|1:0|10:1627081956|23:username-localhost-8888|44:YmJmMTgxMDI5MGJiNGVmYTg3NDAyNjE5NDY0NWQxM2Q=|ec9df9a68148be5a4bdbd1259181a0d76d09177eeb2e3db9fb6adcc186a830c6" "Sun, 22 Aug 2021 23:12:36 GMT" "/" "localhost" nil]
+  [url-cookie "_xsrf" "2|ca71cfd2|cf9abfe779fad79bb467e14545fd8608|1627199139" "Tue, 24 Aug 2021 07:45:39 GMT" "/" "localhost" nil])
+ ("localhost:8888"
+  [url-cookie "username-localhost-8888" "2|1:0|10:1627081956|23:username-localhost-8888|44:YmJmMTgxMDI5MGJiNGVmYTg3NDAyNjE5NDY0NWQxM2Q=|ec9df9a68148be5a4bdbd1259181a0d76d09177eeb2e3db9fb6adcc186a830c6" "Sun, 22 Aug 2021 23:12:36 GMT" "/" "localhost:8888" nil]))
+)
+(setq url-cookie-secure-storage
+ '((".visualstudio.com"
+  [url-cookie "VstsSession" "%7B%22PersistentSessionId%22%3A%22b2f0507b-d4c7-425f-bc05-f5a51e948bab%22%2C%22PendingAuthenticationSessionId%22%3A%2200000000-0000-0000-0000-000000000000%22%2C%22CurrentAuthenticationSessionId%22%3A%2200000000-0000-0000-0000-000000000000%22%2C%22SignInState%22%3A%7B%7D%7D" "Sun, 17-May-2026 22:20:51 GMT" "/" ".visualstudio.com" t]))
+)
+
+;; Local Variables:
+;; version-control: never
+;; no-byte-compile: t
+;; End:
