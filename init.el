@@ -32,7 +32,6 @@
 (global-set-key [remap mouse-secondary-save-then-kill] 'mouse-save-then-kill)
 
 ;; LANGS
-;;
 (use-package company :ensure t)
 (use-package company-box :ensure t
   :hook (company-mode . company-box-mode))
@@ -158,6 +157,17 @@
   :bind (:map python-mode-map
               ("C-c C-n" . numpydoc-generate)))
 
+;; R
+(use-package ess :ensure t)
+(use-package format-all :ensure t
+  :hook (ess-r-mode . format-all-mode))
+
+(lsp-register-client
+    (make-lsp-client :new-connection
+        (lsp-stdio-connection '("R" "--slave" "-e" "languageserver::run()"))
+        :major-modes '(ess-r-mode inferior-ess-r-mode)
+        :server-id 'lsp-R))
+
 ;; js prettier
 (use-package prettier-js
   :ensure t
@@ -267,13 +277,11 @@ apps are not started from a shell."
  '(conda-anaconda-home "/home/alex/miniconda3/")
  '(conda-env-home-directory "/home/alex/miniconda3/")
  '(custom-safe-themes
-   (quote
-    ("e6df46d5085fde0ad56a46ef69ebb388193080cc9819e2d6024c9c6e27388ba9" "37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default)))
+   '("e6df46d5085fde0ad56a46ef69ebb388193080cc9819e2d6024c9c6e27388ba9" "37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default))
  '(jupyter-repl-echo-eval-p t)
  '(lsp-eslint-auto-fix-on-save t)
  '(lsp-latex-build-args
-   (quote
-    ("-pdf" "-interaction=nonstopmode" "-bibtex" "-synctex=1" "%f")))
+   '("-pdf" "-interaction=nonstopmode" "-bibtex" "-synctex=1" "%f"))
  '(lsp-latex-build-on-save t)
  '(lsp-latex-chktex-on-edit t)
  '(lsp-latex-chktex-on-open-and-save nil)
@@ -283,7 +291,7 @@ apps are not started from a shell."
  '(lsp-pylsp-plugins-pydocstyle-enabled nil)
  '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
-   '(poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(prettier-js-args nil)
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg ""))
