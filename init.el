@@ -162,6 +162,26 @@
 (use-package format-all :ensure t
   :hook (ess-r-mode . format-all-mode))
 
+(use-package julia-mode
+  :ensure t
+  :mode ("\\.jl\\'" . ess-julia-mode)
+  :init
+  (add-hook 'julia-mode-hook 'ess-julia-mode)
+  )
+
+(use-package vterm :ensure t)
+
+(use-package julia-snail
+  :ensure t
+  :requires vterm
+  :hook (julia-mode . julia-snail-mode))
+
+(use-package lsp-julia
+  :ensure t
+  :config
+  (setq lsp-julia-default-environment "~/.julia/environments/v1.6")
+  :init (add-hook 'ess-julia-mode-hook 'lsp-mode))
+
 (lsp-register-client
     (make-lsp-client :new-connection
         (lsp-stdio-connection '("R" "--slave" "-e" "languageserver::run()"))
@@ -291,7 +311,7 @@ apps are not started from a shell."
  '(lsp-pylsp-plugins-pydocstyle-enabled nil)
  '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
-   '(format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(julia-formatter lsp-julia julia-mode format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(prettier-js-args nil)
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg ""))
