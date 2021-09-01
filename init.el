@@ -22,6 +22,10 @@
 ;; org-journal
 (use-package org-journal :ensure t)
 
+;; org setup
+(setq org-todo-keywords
+      '((sequence "TODO" "NEXT" "DONE")))
+
 ;; flycheck
 (use-package flycheck
   :ensure t
