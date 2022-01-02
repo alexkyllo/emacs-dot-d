@@ -87,7 +87,7 @@
 ;; python virtualenvs
 (use-package conda :ensure t)
 (use-package pipenv :ensure t)
-
+(electric-pair-mode 1)
 ;; language server mode
 (use-package lsp-mode
   :ensure t
@@ -260,6 +260,8 @@
 ;;(global-linum-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
 (tool-bar-mode -1)
+;;reflow text to column 80
+(setq-default fill-column 80)
 
 (defun set-exec-path-from-shell-PATH ()
   "Set up Emacs' `exec-path' and PATH environment variable to match
@@ -291,7 +293,7 @@ apps are not started from a shell."
 
 ;; venv workon
 (setenv "WORKON_HOME" "/home/alex/.virtualenvs")
-(setenv "WORKON_HOME" "/home/alex/.local/share/virtualenvs")
+;;(setenv "WORKON_HOME" "/home/alex/.local/share/virtualenvs")
 ;;(setenv "WORKON_HOME" "/home/jekyllo/envs")
 ;; no tabs
 (setq-default indent-tabs-mode nil)
