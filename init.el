@@ -189,9 +189,10 @@
               ("C-c C-n" . numpydoc-generate)))
 
 ;; Fira code font
-(use-package fira-code-mode :ensure t)
-(fira-code-mode-install-fonts :y)
-(global-fira-code-mode)
+;; (use-package fira-code-mode :ensure t)
+;; (fira-code-mode-install-fonts :y)
+;; (global-fira-code-mode)
+;; (global-fira-code-mode 0)
 ;; R
 (use-package ess :ensure t)
 (use-package poly-R :ensure t)
