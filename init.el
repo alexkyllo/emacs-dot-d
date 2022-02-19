@@ -120,6 +120,30 @@
   :config
   (dap-auto-configure-mode))
 
+;; PDM
+(defun pdm-get-python-executable (&optional dir)
+    (let ((pdm-get-python-cmd "pdm info --python"))
+      (string-trim
+       (shell-command-to-string
+        (if dir
+            (concat "cd "
+                    dir
+                    " && "
+                    pdm-get-python-cmd)
+          pdm-get-python-cmd)))))
+
+
+(defun pdm-get-packages-path (&optional dir)
+  (let ((pdm-get-packages-cmd "pdm info --packages"))
+    (concat (string-trim
+             (shell-command-to-string
+              (if dir
+                  (concat "cd "
+                          dir
+                          " && "
+                          pdm-get-packages-cmd)
+                pdm-get-packages-cmd)))
+            "/lib")))
 
 ;; (use-package lsp-pyright
 ;;   :ensure t
@@ -166,6 +190,7 @@
 
 ;; R
 (use-package ess :ensure t)
+(use-package poly-R :ensure t)
 (use-package format-all :ensure t
   :hook (ess-r-mode . format-all-mode))
 
@@ -320,7 +345,7 @@ apps are not started from a shell."
  '(lsp-pylsp-plugins-pydocstyle-enabled nil)
  '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
-   '(org-journal julia-formatter lsp-julia julia-mode format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(poly-R org-journal julia-formatter lsp-julia julia-mode format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(prettier-js-args nil)
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg "")
