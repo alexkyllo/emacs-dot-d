@@ -182,12 +182,16 @@
 ;;        :notification-handlers (lsp-ht ("pyright/beginProgress" 'lsp-pyright--begin-progress-callback)
 ;;                                      ("pyright/reportProgress" 'lsp-pyright--report-progress-callback)
 ;;                                      ("pyright/endProgress" 'lsp-pyright--end-progress-callback))))
-
+(set-frame-font "Cascadia Code 10")
 (use-package numpydoc
   :ensure t
   :bind (:map python-mode-map
               ("C-c C-n" . numpydoc-generate)))
 
+;; Fira code font
+(use-package fira-code-mode :ensure t)
+(fira-code-mode-install-fonts :y)
+(global-fira-code-mode)
 ;; R
 (use-package ess :ensure t)
 (use-package poly-R :ensure t)
@@ -345,7 +349,7 @@ apps are not started from a shell."
  '(lsp-pylsp-plugins-pydocstyle-enabled nil)
  '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
-   '(poly-R org-journal julia-formatter lsp-julia julia-mode format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(fira-code-mode poly-R org-journal julia-formatter lsp-julia julia-mode format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(prettier-js-args nil)
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg "")
