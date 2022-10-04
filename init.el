@@ -206,11 +206,11 @@
   (add-hook 'julia-mode-hook 'ess-julia-mode)
   )
 
-(use-package vterm :ensure t)
+;;(use-package vterm :ensure t)
 
 (use-package julia-snail
   :ensure t
-  :requires vterm
+;;  :requires vterm
   :hook (julia-mode . julia-snail-mode))
 
 (use-package lsp-julia
@@ -243,7 +243,8 @@
 (use-package yaml-mode :ensure t)
 
 ;; MISC
-
+;; MATLAB
+(use-package matlab-mode :ensure t)
 ;; kill ring
 (use-package browse-kill-ring :ensure t)
 (browse-kill-ring-default-keybindings)
@@ -319,7 +320,9 @@ apps are not started from a shell."
 (use-package zenburn-theme :ensure t)
 (use-package dream-theme :ensure t)
 (use-package nord-theme :ensure t)
-(load-theme 'nord t)
+(use-package horizon-theme :ensure t)
+(load-theme 'horizon t)
+;;(load-theme 'nord t)
 
 ;; venv workon
 (setenv "WORKON_HOME" "/home/alex/.virtualenvs")
@@ -354,6 +357,7 @@ apps are not started from a shell."
  '(prettier-js-args nil)
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg "")
+ '(warning-suppress-types '((use-package)))
  '(whitespace-style '(lines-tail)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
