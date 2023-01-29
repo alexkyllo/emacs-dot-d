@@ -87,7 +87,7 @@
 ;; python virtualenvs
 (use-package conda :ensure t)
 (use-package pipenv :ensure t)
-
+(electric-pair-mode 1)
 ;; language server mode
 (use-package lsp-mode
   :ensure t
@@ -120,6 +120,30 @@
   :config
   (dap-auto-configure-mode))
 
+;; PDM
+(defun pdm-get-python-executable (&optional dir)
+    (let ((pdm-get-python-cmd "pdm info --python"))
+      (string-trim
+       (shell-command-to-string
+        (if dir
+            (concat "cd "
+                    dir
+                    " && "
+                    pdm-get-python-cmd)
+          pdm-get-python-cmd)))))
+
+
+(defun pdm-get-packages-path (&optional dir)
+  (let ((pdm-get-packages-cmd "pdm info --packages"))
+    (concat (string-trim
+             (shell-command-to-string
+              (if dir
+                  (concat "cd "
+                          dir
+                          " && "
+                          pdm-get-packages-cmd)
+                pdm-get-packages-cmd)))
+            "/lib")))
 
 ;; (use-package lsp-pyright
 ;;   :ensure t
@@ -158,14 +182,20 @@
 ;;        :notification-handlers (lsp-ht ("pyright/beginProgress" 'lsp-pyright--begin-progress-callback)
 ;;                                      ("pyright/reportProgress" 'lsp-pyright--report-progress-callback)
 ;;                                      ("pyright/endProgress" 'lsp-pyright--end-progress-callback))))
-
+(set-frame-font "Cascadia Code 10")
 (use-package numpydoc
   :ensure t
   :bind (:map python-mode-map
               ("C-c C-n" . numpydoc-generate)))
 
+;; Fira code font
+;; (use-package fira-code-mode :ensure t)
+;; (fira-code-mode-install-fonts :y)
+;; (global-fira-code-mode)
+;; (global-fira-code-mode 0)
 ;; R
 (use-package ess :ensure t)
+(use-package poly-R :ensure t)
 (use-package format-all :ensure t
   :hook (ess-r-mode . format-all-mode))
 
@@ -176,11 +206,11 @@
   (add-hook 'julia-mode-hook 'ess-julia-mode)
   )
 
-(use-package vterm :ensure t)
+;;(use-package vterm :ensure t)
 
 (use-package julia-snail
   :ensure t
-  :requires vterm
+;;  :requires vterm
   :hook (julia-mode . julia-snail-mode))
 
 (use-package lsp-julia
@@ -213,7 +243,8 @@
 (use-package yaml-mode :ensure t)
 
 ;; MISC
-
+;; MATLAB
+(use-package matlab-mode :ensure t)
 ;; kill ring
 (use-package browse-kill-ring :ensure t)
 (browse-kill-ring-default-keybindings)
@@ -260,6 +291,8 @@
 ;;(global-linum-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
 (tool-bar-mode -1)
+;;reflow text to column 80
+(setq-default fill-column 80)
 
 (defun set-exec-path-from-shell-PATH ()
   "Set up Emacs' `exec-path' and PATH environment variable to match
@@ -287,11 +320,13 @@ apps are not started from a shell."
 (use-package zenburn-theme :ensure t)
 (use-package dream-theme :ensure t)
 (use-package nord-theme :ensure t)
-(load-theme 'nord t)
+(use-package horizon-theme :ensure t)
+(load-theme 'horizon t)
+;;(load-theme 'nord t)
 
 ;; venv workon
 (setenv "WORKON_HOME" "/home/alex/.virtualenvs")
-(setenv "WORKON_HOME" "/home/alex/.local/share/virtualenvs")
+;;(setenv "WORKON_HOME" "/home/alex/.local/share/virtualenvs")
 ;;(setenv "WORKON_HOME" "/home/jekyllo/envs")
 ;; no tabs
 (setq-default indent-tabs-mode nil)
@@ -318,10 +353,12 @@ apps are not started from a shell."
  '(lsp-pylsp-plugins-pydocstyle-enabled nil)
  '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
-   '(julia-formatter lsp-julia julia-mode format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(fira-code-mode poly-R org-journal julia-formatter lsp-julia julia-mode format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(prettier-js-args nil)
  '(py-isort-options nil)
- '(python-shell-interpreter-interactive-arg ""))
+ '(python-shell-interpreter-interactive-arg "")
+ '(warning-suppress-types '((use-package)))
+ '(whitespace-style '(lines-tail)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
