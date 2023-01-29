@@ -353,12 +353,10 @@ apps are not started from a shell."
  '(lsp-pylsp-plugins-pydocstyle-enabled nil)
  '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
-   '(fira-code-mode poly-R org-journal julia-formatter lsp-julia julia-mode format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(horizon-theme julia-formatter lsp-julia julia-mode format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(prettier-js-args nil)
  '(py-isort-options nil)
- '(python-shell-interpreter-interactive-arg "")
- '(warning-suppress-types '((use-package)))
- '(whitespace-style '(lines-tail)))
+ '(python-shell-interpreter-interactive-arg ""))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
