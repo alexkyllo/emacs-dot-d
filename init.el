@@ -328,6 +328,34 @@ apps are not started from a shell."
 (load-theme 'horizon t)
 ;;(load-theme 'nord t)
 
+;; LIGATURES
+(use-package ligature
+  :ensure t
+  :load-path "path-to-ligature-repo"
+  :config
+  ;; Enable the "www" ligature in every possible major mode
+  (ligature-set-ligatures 't '("www"))
+  ;; Enable traditional ligature support in eww-mode, if the
+  ;; `variable-pitch' face supports it
+  (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
+  ;; Enable all Cascadia Code ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                                       ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                                       "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                                       "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                                       "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                                       "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                                       "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                                       "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                                       ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+                                       "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+                                       "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+                                       "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+                                       "\\\\" "://"))
+  ;; Enables ligature checks globally in all buffers. You can also do it
+  ;; per mode with `ligature-mode'.
+  (global-ligature-mode t))
+
 ;; venv workon
 (setenv "WORKON_HOME" "/home/alex/.virtualenvs")
 ;;(setenv "WORKON_HOME" "/home/alex/.local/share/virtualenvs")
@@ -343,7 +371,7 @@ apps are not started from a shell."
  '(conda-anaconda-home "/home/alex/miniconda3/")
  '(conda-env-home-directory "/home/alex/miniconda3/")
  '(custom-safe-themes
-   '("3b8284e207ff93dfc5e5ada8b7b00a3305351a3fb222782d8033a400a48eca48" "e6df46d5085fde0ad56a46ef69ebb388193080cc9819e2d6024c9c6e27388ba9" "37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default))
+   '("e6df46d5085fde0ad56a46ef69ebb388193080cc9819e2d6024c9c6e27388ba9" "37768a79b479684b0756dec7c0fc7652082910c37d8863c35b702db3f16000f8" default))
  '(jupyter-repl-echo-eval-p t)
  '(lsp-eslint-auto-fix-on-save t)
  '(lsp-latex-build-args
@@ -357,11 +385,11 @@ apps are not started from a shell."
  '(lsp-pylsp-plugins-pydocstyle-enabled nil)
  '(lsp-pylsp-plugins-pylint-enabled t)
  '(package-selected-packages
-   '(move-text horizon-theme julia-formatter lsp-julia julia-mode format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
+   '(ligature fira-code-mode poly-R org-journal julia-formatter lsp-julia julia-mode format-all ess poetry numpydoc pyment py-pyment yaml-mode yaml restclient company-box prettier-js flycheck py-isort projectile graphviz-dot-mode jupyter emacs-jupyter browse-kill-ring pytest company-bibtex switch-window blacken ein lsp-latex lsp-lens lsp-ivy lsp-treemacs which-key treemacs lsp-pyright lsp-mode pipenv conda use-package nord-theme neotree magit ivy elpy all-the-icons))
  '(prettier-js-args nil)
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg "")
- '(warning-suppress-types '((comp) (comp))))
+ '(whitespace-style '(lines-tail)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
