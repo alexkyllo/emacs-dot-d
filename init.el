@@ -248,7 +248,7 @@
 
 ;; MISC
 ;; MATLAB
-(use-package matlab-mode :ensure t)
+;;(use-package matlab-mode :ensure t)
 ;; kill ring
 (use-package browse-kill-ring :ensure t)
 (browse-kill-ring-default-keybindings)
@@ -389,6 +389,7 @@ apps are not started from a shell."
  '(prettier-js-args nil)
  '(py-isort-options nil)
  '(python-shell-interpreter-interactive-arg "")
+ '(warning-suppress-types '((use-package)))
  '(whitespace-style '(lines-tail)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
